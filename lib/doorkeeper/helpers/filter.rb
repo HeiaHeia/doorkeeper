@@ -9,6 +9,9 @@ module Doorkeeper
             return if doorkeeper_for.validate_token(doorkeeper_token)
             # TODO: use ErrorRespose class for this
             render_options = doorkeeper_unauthorized_render_options
+
+            headers['WWW-Authenticate'] = 'Basic realm="Application"'
+
             if render_options.nil? || render_options.empty?
               head :unauthorized
             else
